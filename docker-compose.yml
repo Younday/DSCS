@@ -1,0 +1,33 @@
+version: "2"
+
+services:
+  server:
+    env_file:
+      - .env
+    image: python:3.7
+    working_dir: /mnt
+    volumes:
+      - ./backend-auth:/mnt
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    command: python src/server.py
+    networks:
+      - flasknetwork
+
+  db:
+    image: "postgres"
+    env_file:
+      - database.env # configure postgres
+    volumes:
+      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+    networks:
+      - flasknetwork
+
+networks:
+  flasknetwork:
+    driver: bridge
+
+volumes:
+  database-data:

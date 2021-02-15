@@ -1,0 +1,39 @@
+Register user
+---
+tags:
+  - Register
+parameters:
+  - name: body
+    in: body
+    type: string
+    description: Object to register user
+    required: true
+    schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/User"
+security:
+  - basicAuth: [user]
+responses:
+  200:
+    description: User {name} was created
+    schema:
+      example:
+        message: Logged in as 
+        access_token: some_token
+        refresh_token: some_token
+  500:
+    description: Something went wrong
+    schema:
+      example:
+        message: Something went wrong
+definitions:
+  User:
+    type: "object"
+    properties:
+      username:
+        type: "string"
+      email:
+        type: "string"
+      password:
+        type: "string"

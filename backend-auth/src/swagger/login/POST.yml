@@ -1,0 +1,30 @@
+Login user
+---
+tags:
+  - login
+parameters:
+  - name: username
+    in: header
+    type: string
+    description: The username of the user
+    required: true
+  - name: password
+    in: header
+    type: string
+    description: The password of the user
+    required: true
+security:
+  - basicAuth: [user]
+responses:
+  200:
+    description: User succesfully logged in
+    schema:
+      example:
+        message: Logged in as 
+        access_token: some_token
+        refresh_token: some_token
+  500:
+    description: Wrong credentials
+    schema:
+      example:
+        message: Wrong credentials
